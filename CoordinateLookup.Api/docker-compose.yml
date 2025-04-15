@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  coordinate-lookup-api:
+    build:
+      context: .
+      dockerfile: CoordinateLookup.Api/Dockerfile
+    env_file:
+      - CoordinateLookup.Api/.env
+    ports:
+      - "8080:8080"
