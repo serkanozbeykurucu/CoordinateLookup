@@ -1,4 +1,5 @@
-﻿using CoordinateLookup.Business.Abstract;
+﻿using AspNetCoreRateLimit;
+using CoordinateLookup.Business.Abstract;
 using CoordinateLookup.Business.Concrete;
 using CoordinateLookup.Data.Abstract;
 using CoordinateLookup.Data.Concrete.EntityFramework;
@@ -10,6 +11,14 @@ namespace CoordinateLookup.Business.DependencyResolvers.Microsoft
     {
         public static void ContainerDependencies(this IServiceCollection services)
         {
+            // Rate Limiting Configuration start
+            
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            
+            // Rate Limiting Configuration end
+            
             services.AddScoped<ILocationService, LocationService>();
 
             services.AddScoped<IProvinceService, ProvinceService>();

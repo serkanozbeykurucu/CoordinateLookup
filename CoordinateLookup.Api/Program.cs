@@ -5,6 +5,7 @@ using CoordinateLookup.Data;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using DotNetEnv;
+using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<CoordinatesDtoValidator>();
 
 // Register Services
 builder.Services.ContainerDependencies();
-
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.AddInMemoryRateLimiting();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -42,6 +45,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseIpRateLimiting();
 
 app.UseAuthorization();
 
