@@ -1,5 +1,4 @@
 ﻿using CoordinateLookup.Data.Abstract;
-using CoordinateLookup.Dto.DTOs;
 using CoordinateLookup.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,10 +32,7 @@ namespace CoordinateLookup.Data.Concrete.EntityFramework
                            {
                                Town = d.Name,
                                ZipCode = d.ZipCode,
-                               Neighbourhoods = d.Neighbourhoods.Select(n => new NeighbourhoodDto
-                               {
-                                   Name = n.Name,
-                               }).ToList()
+                               Neighbourhoods = d.Neighbourhoods.Select(n => n.Name).ToList()
                            })
                            .FirstOrDefaultAsync();
         }

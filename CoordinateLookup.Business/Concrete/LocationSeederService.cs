@@ -49,7 +49,7 @@ namespace CoordinateLookup.Business.Concrete
                         ZipCode = t.ZipCode,
                         Neighbourhoods = t.Neighbourhoods.Select(n => new Neighbourhood
                         {
-                            Name = n.Name
+                            Name = n
                         }).ToList()
                     }).ToList()
                 }).ToList()

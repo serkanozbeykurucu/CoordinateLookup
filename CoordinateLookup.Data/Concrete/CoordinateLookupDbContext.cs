@@ -13,5 +13,10 @@ namespace CoordinateLookup.Data
         public DbSet<Town> Towns => Set<Town>();
         public DbSet<Neighbourhood> Neighbourhoods => Set<Neighbourhood>();
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.HasPostgresExtension("postgis");
+        }
     }
 }
